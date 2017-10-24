@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMotionController : MonoBehaviour {
     Rigidbody2D playerRigidbody;
     Animator anim;
+    Player player;
 
     public float speed = 3;
     public float jumpPower = 120;
@@ -13,40 +14,45 @@ public class PlayerMotionController : MonoBehaviour {
     
     public bool isJustStart = false;
     public bool isJump = false;
-    public bool isFacingRight;
 	// Use this for initialization
 	void Start () {
         playerRigidbody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        isFacingRight = true;
-
+        player = GetComponent<Player>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetButtonDown("Jump"))
-            isJustStart = true;
 
-        moveX = Input.GetAxisRaw("Horizontal");
+    // Update is called once per frame
+    void Update()
+    {
 
-        flipPlayer();
+        if (player.getState() == PlayerState.Moving)
+        {
+            if (Input.GetButtonDown("Jump"))
+                isJustStart = true;
+
+            moveX = Input.GetAxisRaw("Horizontal");
+
+            flipPlayer();
+        }
     }
 
     void FixedUpdate()
     {
 
-        if (isJustStart == true && isJump == false)
+        if (player.getState() == PlayerState.Moving)
         {
-            isJustStart = false;
-            jump();
+            if (isJustStart == true && isJump == false)
+            {
+                isJustStart = false;
+                jump();
+            }
+
+            playerRigidbody.velocity = new Vector2(moveX * speed, playerRigidbody.velocity.y);
+            if (moveX != 0)
+                anim.SetBool("Running", true);
+            else
+                anim.SetBool("Running", false);
         }
-
-        playerRigidbody.velocity = new Vector2(moveX * speed, playerRigidbody.velocity.y);
-        if (moveX != 0)
-            anim.SetBool("Running", true);
-        else
-            anim.SetBool("Running", false);
-
 
 
     }
@@ -60,9 +66,9 @@ public class PlayerMotionController : MonoBehaviour {
 
     void flipPlayer()
     {
-        if ((moveX == 1 && isFacingRight == false) || (moveX == -1 && isFacingRight == true))
+        if ((moveX == 1 && player.isFacingRight == false) || (moveX == -1 && player.isFacingRight == true))
         {
-            isFacingRight = !isFacingRight;
+            player.isFacingRight = !player.isFacingRight;
             transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
         }
     }

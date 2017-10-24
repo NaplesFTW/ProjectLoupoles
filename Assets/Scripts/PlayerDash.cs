@@ -6,8 +6,9 @@ using UnityEngine;
 /// Tempory testing how to do a dash.
 /// </summary>
 
-public class DashAbility : MonoBehaviour {
+public class PlayerDash : MonoBehaviour {
     public DashState dashState;
+    Player player;
     public float dashTimer;
     public float dashCooldownTimer;
     public float dashSpeed = 3f;
@@ -15,11 +16,12 @@ public class DashAbility : MonoBehaviour {
     public float dashCooldown = .5f;
 
     Rigidbody2D playerRigidBody;
-
+    float savedGravityScale;
     public float savedVelocityX;
     // Use this for initialization
 	void Start () {
         playerRigidBody = GetComponent<Rigidbody2D>();
+        player = GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
@@ -32,13 +34,16 @@ public class DashAbility : MonoBehaviour {
         switch (dashState)
         {
             case DashState.Ready:
-                if(Input.GetKeyDown(KeyCode.LeftShift))
+                if(Input.GetKeyDown(KeyCode.LeftShift) && player.getState() == PlayerState.Moving)
                 {
                     
                     GetComponent<Animator>().SetBool("Dashing",true);
+                    savedGravityScale = playerRigidBody.gravityScale;
+                    playerRigidBody.gravityScale = 0;
                     //playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x * dashSpeed, 0);
                     //playerRigidBody.AddForce(new Vector2(maxDash*10000, 0),ForceMode2D.Force);
                     dashState = DashState.Dashing;
+                    player.setState(PlayerState.Dashing);
                 }
                 break;
 
@@ -48,7 +53,7 @@ public class DashAbility : MonoBehaviour {
                 {
                     savedVelocityX = playerRigidBody.velocity.x;
                     //transform.Translate(savedVelocityX)
-                    //playerRigidBody.velocity =  new Vector3(0,0,0);
+                    playerRigidBody.velocity =  new Vector3(dashSpeed * (player.isFacingRight ? 1 : -1),0,0);
 
                 }
                 else
@@ -61,6 +66,8 @@ public class DashAbility : MonoBehaviour {
                 break;
 
             case DashState.Cooldown:
+                player.setState(PlayerState.Moving);
+                playerRigidBody.gravityScale = savedGravityScale;
                 dashCooldownTimer += Time.deltaTime;
                 if (dashCooldownTimer > dashCooldown)
                 {
