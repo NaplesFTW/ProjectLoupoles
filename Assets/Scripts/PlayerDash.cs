@@ -9,65 +9,66 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour {
     public DashState dashState;
     Player player;
+
+    public float dashXStart;
     public float dashTimer;
     public float dashCooldownTimer;
-    public float dashSpeed = 3f;
-    public float maxDash = 2f;
+    public float dashDistance = 3f;
+    public float dashTime = 2f;
     public float dashCooldown = .5f;
 
-    Rigidbody2D playerRigidBody;
-    float savedGravityScale;
-    public float savedVelocityX;
-    // Use this for initialization
+    
 	void Start () {
-        playerRigidBody = GetComponent<Rigidbody2D>();
         player = GetComponent<Player>();
 	}
 	
-	// Update is called once per frame
 
-
-
+    //REDO: Change DashState to regular playerstate and just add a cooldown boolean.
 
 	void Update () {
-        savedVelocityX = playerRigidBody.velocity.x;
+
+
+
         switch (dashState)
         {
             case DashState.Ready:
                 if(Input.GetKeyDown(KeyCode.LeftShift) && player.getState() == PlayerState.Moving)
                 {
-                    
-                    GetComponent<Animator>().SetBool("Dashing",true);
-                    savedGravityScale = playerRigidBody.gravityScale;
-                    playerRigidBody.gravityScale = 0;
-                    //playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x * dashSpeed, 0);
-                    //playerRigidBody.AddForce(new Vector2(maxDash*10000, 0),ForceMode2D.Force);
-                    dashState = DashState.Dashing;
+                    dashXStart = transform.position.x;
+
+                    player.anim.SetBool("Dashing",true);
+                    player.rb.gravityScale = 0;
                     player.setState(PlayerState.Dashing);
+
+                    dashState = DashState.Dashing;
                 }
                 break;
 
             case DashState.Dashing:
-                dashTimer += Time.deltaTime * 3;
-                if(dashTimer < maxDash)
+                dashTimer += Time.deltaTime;
+                if(dashTimer < dashTime)
                 {
-                    savedVelocityX = playerRigidBody.velocity.x;
-                    //transform.Translate(savedVelocityX)
-                    playerRigidBody.velocity =  new Vector3(dashSpeed * (player.isFacingRight ? 1 : -1),0,0);
-
+                    player.rb.velocity =  new Vector3(dashDistance * player.isFacingRightInt()/ dashTime, 0,0);
                 }
                 else
                 {
                     dashTimer = 0;
                     GetComponent<Animator>().SetBool("Dashing", false);
+                    player.rb.velocity = Vector2.zero;
+
+                    if(player.hit.collider == null)
+                        transform.position = new Vector2( dashXStart  + dashDistance * player.isFacingRightInt() , transform.position.y );
+
+
                     dashState = DashState.Cooldown;
+
                 }
                 //do stuff 
                 break;
 
             case DashState.Cooldown:
                 player.setState(PlayerState.Moving);
-                playerRigidBody.gravityScale = savedGravityScale;
+                player.rb.gravityScale = player.savedGravityScale;
                 dashCooldownTimer += Time.deltaTime;
                 if (dashCooldownTimer > dashCooldown)
                 {

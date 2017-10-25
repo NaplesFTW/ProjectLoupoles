@@ -82,7 +82,8 @@
     <Compile Include="Assets\Scripts\ChangeLevel.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerDash.cs" />
-    <Compile Include="Assets\Scripts\PlayerMotionController.cs" />
+    <Compile Include="Assets\Scripts\PlayerJump.cs" />
+    <Compile Include="Assets\Scripts\PlayerRun.cs" />
     <Compile Include="Assets\Scripts\Terminate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
