@@ -78,13 +78,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\Scripts\ChangeLevel.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerDash.cs" />
-    <Compile Include="Assets\Scripts\PlayerJump.cs" />
-    <Compile Include="Assets\Scripts\PlayerRun.cs" />
-    <Compile Include="Assets\Scripts\Terminate.cs" />
+    <Compile Include="Assets\NOTES.cs" />
+    <Compile Include="Assets\Scripts\General\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\General\ChangeLevel.cs" />
+    <Compile Include="Assets\Scripts\General\Terminate.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerDash.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerJump.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerRun.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerShoot.cs" />
+    <Compile Include="Assets\Scripts\Weapons\RegularBullet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -8,12 +8,11 @@ public class PlayerJump : MonoBehaviour {
     public bool isJustStart = false;
     public bool isJump = false;
 
-    public float jumpPower;
+    public float jumpPower = 425;
 
     // Use this for initialization
     void Start () {
         player = GetComponent<Player>();
-        jumpPower = 375;
 	}
 	
 	// Update is called once per frame

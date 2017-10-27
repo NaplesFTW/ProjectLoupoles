@@ -22,6 +22,7 @@ public class PlayerRun : MonoBehaviour {
             //moving left and right jumping and not jumping
             player.rb.velocity = new Vector2(player.hor * speed, player.rb.velocity.y);
 
+
             //check if moving at all and sets the animations accordingly.
             if (player.hor != 0)
                 player.anim.SetBool("Running", true);

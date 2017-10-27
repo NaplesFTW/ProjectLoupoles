@@ -10,8 +10,9 @@ public class Player : MonoBehaviour {
     PlayerJump playerJump;
 
     public Rigidbody2D rb;
-    public RaycastHit2D hit;
     public Animator anim;
+
+    public RaycastHit2D hit;
 
     public float hor; // Horizontal axis for the inputs.
     public float savedGravityScale = 25f; //get gravity scale normally by rb if want to change it in the inspector
