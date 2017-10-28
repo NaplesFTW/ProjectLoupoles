@@ -48,8 +48,7 @@ public class PlayerDash : MonoBehaviour {
                 GetComponent<Animator>().SetBool("Dashing", false);
                 player.rb.velocity = Vector2.zero;
 
-                if (player.hit.collider == null)
-                    transform.position = new Vector2(dashXStart + dashDistance * player.isFacingRightInt(), transform.position.y);
+                //if (player.hit.collider == null) transform.position = new Vector2(dashXStart + dashDistance * player.isFacingRightInt(), transform.position.y); //if you want perfect distance dash.
 
                 player.rb.gravityScale = player.savedGravityScale;
                 player.setState(PlayerState.Moving);

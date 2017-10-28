@@ -19,6 +19,9 @@ public class ChangeLevel : MonoBehaviour {
 
     {
         if (collision.transform.tag == "Player")
-             SceneManager.LoadScene(sceneToLoad);
+        {
+            //Player.Instance.anim.StopPlayback();
+            SceneManager.LoadScene(0);
+        }
     }
 }

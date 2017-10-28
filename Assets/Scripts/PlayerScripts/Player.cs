@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     PlayerState playerState;
-
+    
     PlayerRun PlayerRun;
     PlayerDash playerDash;
     PlayerJump playerJump;
+    [HideInInspector]
+    public PlayerShoot playerShoot;
 
+    public Transform bulletParent;
+
+    [HideInInspector]
     public Rigidbody2D rb;
     public Animator anim;
 
@@ -19,19 +24,29 @@ public class Player : MonoBehaviour {
 
     bool isFacingRight;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
-	void Start () {
+    void Start () {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         PlayerRun = GetComponent<PlayerRun>();
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
+        playerShoot = GetComponent<PlayerShoot>();
         isFacingRight = true;
-
+        savedGravityScale = rb.gravityScale;
     }
 
     private void Update()
     {
+        if (anim == null)
+            anim = GetComponent<Animator>();
+        if (playerShoot == null)
+            playerShoot = GetComponent<PlayerShoot>();
+
         hor = Input.GetAxisRaw("Horizontal");
         flipPlayer();
     }

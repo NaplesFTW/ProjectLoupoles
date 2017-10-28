@@ -7,9 +7,10 @@ public class PlayerShoot : MonoBehaviour {
 
     public GameObject bulletPrefab;
     public Vector2 bulletStartPos;
-    public Transform bulletParent;
+
 
     List<GameObject> bullets;
+    public bool shot;
 
     public float bulletCooldownTimer;
 	// Use this for initialization
@@ -21,9 +22,12 @@ public class PlayerShoot : MonoBehaviour {
 
     void Update()
     {
+        if (player.anim == null)
+            player.anim = GetComponent<Animator>();
 
-        if (Input.GetAxis("Shoot") == 0)
+        if (Input.GetAxis("Shoot") == 0 && shot == true)
         {
+            shot = false;
             player.anim.SetBool("Shooting", false);
         }
 
@@ -36,7 +40,7 @@ public class PlayerShoot : MonoBehaviour {
 
     void FixedUpdate () {
 
-        if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0)
+        if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0 && player.getState() != PlayerState.Dashing)
         {
             Shoot();
         }
@@ -49,8 +53,6 @@ public class PlayerShoot : MonoBehaviour {
                 continue;
             }
 
-            bullets[i].transform.Translate(Vector2.right * bullets[i].GetComponent<RegularBullet>().Direction * bullets[i].GetComponent<RegularBullet>().bulletSpeed * Time.deltaTime);
-            bullets[i].GetComponent<Rigidbody2D>().velocity = Vector2.right * bullets[i].GetComponent<RegularBullet>().Direction * bullets[i].GetComponent<RegularBullet>().bulletSpeed;
 
         }
 
@@ -58,16 +60,12 @@ public class PlayerShoot : MonoBehaviour {
 
     void Shoot()
     {
+        shot = true;
         player.anim.SetBool("Shooting", true);
-        bulletCooldownTimer = bulletPrefab.GetComponent<RegularBullet>().bulletShotCooldown;
+        //bulletCooldownTimer = bulletPrefab.GetComponent<RegularBullet>().bulletShotCooldown; //need to make seperate cooldown in abilities.
         GameObject bullet = Instantiate<GameObject>(bulletPrefab);
-        bullet.transform.SetParent(bulletParent);
-        bullet.transform.position = (transform.position + (Vector3)bulletStartPos * player.isFacingRightInt());
-        bullet.GetComponent<RegularBullet>().Direction = player.isFacingRightInt();
 
         bullets.Add(bullet);
-
-        Debug.Log("Bullets1: " + bullets.Count);
     }
 
 }
