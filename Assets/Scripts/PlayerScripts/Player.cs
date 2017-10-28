@@ -24,11 +24,6 @@ public class Player : MonoBehaviour {
 
     bool isFacingRight;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(transform.gameObject);
-    }
-
     void Start () {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -42,11 +37,6 @@ public class Player : MonoBehaviour {
 
     private void Update()
     {
-        if (anim == null)
-            anim = GetComponent<Animator>();
-        if (playerShoot == null)
-            playerShoot = GetComponent<PlayerShoot>();
-
         hor = Input.GetAxisRaw("Horizontal");
         flipPlayer();
     }

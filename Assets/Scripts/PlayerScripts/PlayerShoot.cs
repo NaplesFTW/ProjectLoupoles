@@ -22,9 +22,6 @@ public class PlayerShoot : MonoBehaviour {
 
     void Update()
     {
-        if (player.anim == null)
-            player.anim = GetComponent<Animator>();
-
         if (Input.GetAxis("Shoot") == 0 && shot == true)
         {
             shot = false;
@@ -62,7 +59,7 @@ public class PlayerShoot : MonoBehaviour {
     {
         shot = true;
         player.anim.SetBool("Shooting", true);
-        //bulletCooldownTimer = bulletPrefab.GetComponent<RegularBullet>().bulletShotCooldown; //need to make seperate cooldown in abilities.
+        bulletCooldownTimer = bulletPrefab.GetComponent<RegularBullet>().bulletShotCooldown; //need to make seperate cooldown in abilities.
         GameObject bullet = Instantiate<GameObject>(bulletPrefab);
 
         bullets.Add(bullet);
