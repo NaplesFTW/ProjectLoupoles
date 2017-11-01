@@ -12,6 +12,7 @@ public class PlayerShoot : MonoBehaviour {
     List<GameObject> bullets;
     public bool shot;
 
+    public float shootCooldownTime = .25f;
     public float bulletCooldownTimer;
 	// Use this for initialization
 	void Start () {
@@ -59,9 +60,9 @@ public class PlayerShoot : MonoBehaviour {
     {
         shot = true;
         player.anim.SetBool("Shooting", true);
-        bulletCooldownTimer = bulletPrefab.GetComponent<RegularBullet>().bulletShotCooldown; //need to make seperate cooldown in abilities.
+        bulletCooldownTimer = shootCooldownTime = .25f;
         GameObject bullet = Instantiate<GameObject>(bulletPrefab);
-
+        bullet.transform.position = bulletStartPos;
         bullets.Add(bullet);
     }
 
