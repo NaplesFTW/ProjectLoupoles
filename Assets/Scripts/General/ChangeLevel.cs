@@ -15,12 +15,17 @@ public class ChangeLevel : MonoBehaviour {
 		
 	}
 
+    public void changeLevel()
+    {
+        SceneManager.LoadScene(sceneToLoad);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
 
     {
         if (collision.transform.tag == "Player")
         {
-            SceneManager.LoadScene(sceneToLoad);
+            changeLevel();
         }
     }
     

@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     PlayerState playerState;
-    
-    PlayerRun PlayerRun;
+
+    PlayerLife playerLife;
+    PlayerRun playerRun;
     PlayerDash playerDash;
     PlayerJump playerJump;
     [HideInInspector]
@@ -27,7 +28,8 @@ public class Player : MonoBehaviour {
     void Start () {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        PlayerRun = GetComponent<PlayerRun>();
+        playerLife = GetComponent<PlayerLife>();
+        playerRun = GetComponent<PlayerRun>();
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
         playerShoot = GetComponent<PlayerShoot>();
@@ -40,7 +42,6 @@ public class Player : MonoBehaviour {
         hor = Input.GetAxisRaw("Horizontal");
         flipPlayer();
     }
-
     void FixedUpdate () {
         hit = Physics2D.Raycast(transform.position, Vector2.right * isFacingRightInt(),playerDash.dashDistance);
 
@@ -81,6 +82,10 @@ public class Player : MonoBehaviour {
     public void setState(PlayerState PS)
     {
         playerState = PS;
+        if(playerState == PlayerState.Dead)
+        {
+            anim.SetTrigger("Die");
+        }
     }
 
 }
@@ -88,5 +93,6 @@ public class Player : MonoBehaviour {
 public enum PlayerState
 {
     Moving,
-    Dashing
+    Dashing,
+    Dead
 }

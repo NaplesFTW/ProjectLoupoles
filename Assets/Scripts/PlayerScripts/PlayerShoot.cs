@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour {
     Player player;
 
-    public GameObject bulletPrefab;
-    public Vector2 bulletStartPos;
+    public GameObject[] abilityPrefabs;
+    public Vector2 abilityStartPos;
+    public int currentAbility = 0; 
 
-
-    List<GameObject> bullets;
+    List<GameObject> abilities;
     public bool shot;
 
     public float shootCooldownTime = .25f;
@@ -17,12 +17,15 @@ public class PlayerShoot : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         player = GetComponent<Player>();
-        bullets = new List<GameObject>();
+        abilities = new List<GameObject>();
     }
 
 
     void Update()
     {
+        if (player.getState() == PlayerState.Dead)
+            return;
+
         if (Input.GetAxis("Shoot") == 0 && shot == true)
         {
             shot = false;
@@ -37,33 +40,35 @@ public class PlayerShoot : MonoBehaviour {
     }
 
     void FixedUpdate () {
+        if (player.getState() == PlayerState.Dead)
+            return;
 
         if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0 && player.getState() != PlayerState.Dashing)
         {
             Shoot();
         }
 
-        for (int i = 0; i < bullets.Count; i++)
+        for (int i = 0; i < abilities.Count; i++)
         {
-            if(bullets[i] == null)
+            if(abilities[i] == null)
             {
-                bullets.Remove(bullets[i]);
+                abilities.Remove(abilities[i]);
                 continue;
             }
-
-
         }
-
     }
-
+    public void setAbility(int abilityNumber)
+    {
+        currentAbility = abilityNumber;
+    }
     void Shoot()
     {
         shot = true;
         player.anim.SetBool("Shooting", true);
         bulletCooldownTimer = shootCooldownTime = .25f;
-        GameObject bullet = Instantiate<GameObject>(bulletPrefab);
-        bullet.transform.position = bulletStartPos;
-        bullets.Add(bullet);
+        GameObject bullet = Instantiate<GameObject>(abilityPrefabs[currentAbility]);
+        bullet.transform.position = abilityStartPos;
+        abilities.Add(bullet);
     }
 
 }

@@ -25,6 +25,8 @@ public class PlayerDash : MonoBehaviour {
     //REDO: Change DashState to regular playerstate and just add a cooldown boolean.
 
 	void Update () {
+        if (player.getState() == PlayerState.Dead)
+            return;
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && player.getState() == PlayerState.Moving && dashCooldownTimer <= 0)
         {

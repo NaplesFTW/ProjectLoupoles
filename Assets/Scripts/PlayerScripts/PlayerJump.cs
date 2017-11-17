@@ -17,6 +17,8 @@ public class PlayerJump : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (player.getState() == PlayerState.Dead)
+            return;
         //if moving then  get input. basically if not dashing currently.
         if (player.getState() == PlayerState.Moving)
         {
@@ -29,6 +31,9 @@ public class PlayerJump : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (player.getState() == PlayerState.Dead)
+            return;
+
         if (player.getState() == PlayerState.Moving)
         {
             //makes sure you dont press jump twice.
