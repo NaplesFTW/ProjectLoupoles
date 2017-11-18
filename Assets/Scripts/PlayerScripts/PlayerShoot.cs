@@ -43,7 +43,7 @@ public class PlayerShoot : MonoBehaviour {
         if (player.getState() == PlayerState.Dead)
             return;
 
-        if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0 && player.getState() != PlayerState.Dashing)
+        if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0 && player.getState() == PlayerState.Moving)
         {
             Shoot();
         }

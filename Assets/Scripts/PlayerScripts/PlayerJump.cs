@@ -50,7 +50,8 @@ public class PlayerJump : MonoBehaviour {
     {
         isJump = true;
         player.anim.SetBool("Jumping", true);
-        player.rb.AddForce(Vector2.up * jumpPower * 10);
+        //player.rb.velocity += new Vector2(0,5f);
+        player.rb.AddForce(Vector2.up * jumpPower * 10,ForceMode2D.Impulse);
     }
 
     //checks of hits walkable objects and sets jump to false and changes the animation.

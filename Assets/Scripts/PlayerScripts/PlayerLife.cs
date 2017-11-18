@@ -17,10 +17,7 @@ public class PlayerLife : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (healthSafeTimer > 0)
-        {
             healthSafeTimer -= Time.deltaTime;
-            
-        }
 	}
 
     public void takeDamage(int damage)
