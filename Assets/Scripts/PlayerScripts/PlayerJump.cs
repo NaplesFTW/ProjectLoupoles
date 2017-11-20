@@ -8,7 +8,7 @@ public class PlayerJump : MonoBehaviour {
     public bool isJustStart = false;
     public bool isJump = false;
 
-    public float jumpPower = 425;
+    public float jumpPower = 9;
 
     // Use this for initialization
     void Start () {
@@ -57,6 +57,9 @@ public class PlayerJump : MonoBehaviour {
     //checks of hits walkable objects and sets jump to false and changes the animation.
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        isJump = false;
+        player.anim.SetBool("Jumping", false);
+
         if (collision.gameObject.tag == "Walkable")
         {
             isJump = false;

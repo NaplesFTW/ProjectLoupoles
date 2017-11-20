@@ -22,8 +22,7 @@ public class Enemy : MonoBehaviour {
         if(collision.gameObject.CompareTag("Player"))
         {
             //Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>(), ignoreCollision);
-            collision.gameObject.GetComponent<PlayerLife>().takeDamage(damage);
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-1000, 50), ForceMode2D.Impulse);
+            collision.gameObject.GetComponent<PlayerLife>().takeDamageKnockback(damage);
         }
     }
 }

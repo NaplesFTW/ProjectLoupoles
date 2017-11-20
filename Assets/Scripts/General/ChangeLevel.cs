@@ -20,6 +20,10 @@ public class ChangeLevel : MonoBehaviour {
         SceneManager.LoadScene(sceneToLoad);
     }
 
+    public void restartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     private void OnTriggerEnter2D(Collider2D collision)
 
     {

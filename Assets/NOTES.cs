@@ -8,4 +8,5 @@ NOTES:
 2. When Wanting to switch animations isntantly, make sure to uncheck has Exit Time and Fixed Duration and set transition Duration
     to something you like.
 
+    3. Sometimes when clicking on UI buttons it will navigate through it through the keys, disable navigation on the buttons if not wanted.
 */

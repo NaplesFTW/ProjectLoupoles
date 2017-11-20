@@ -13,7 +13,7 @@ public class PlayerShoot : MonoBehaviour {
     public bool shot;
 
     public float shootCooldownTime = .25f;
-    public float bulletCooldownTimer;
+    public float shootCooldownTimer;
 	// Use this for initialization
 	void Start () {
         player = GetComponent<Player>();
@@ -35,15 +35,15 @@ public class PlayerShoot : MonoBehaviour {
         if(player.getState() == PlayerState.Dashing)
             player.anim.SetBool("Shooting", false);
 
-        if (bulletCooldownTimer > 0)
-            bulletCooldownTimer -= Time.deltaTime;
+        if (shootCooldownTimer > 0)
+            shootCooldownTimer -= Time.deltaTime;
     }
 
     void FixedUpdate () {
         if (player.getState() == PlayerState.Dead)
             return;
 
-        if (Input.GetAxis("Shoot") == 1 && bulletCooldownTimer <= 0 && player.getState() == PlayerState.Moving)
+        if (Input.GetAxis("Shoot") == 1 && shootCooldownTimer <= 0 && player.getState() == PlayerState.Moving)
         {
             Shoot();
         }
@@ -65,7 +65,7 @@ public class PlayerShoot : MonoBehaviour {
     {
         shot = true;
         player.anim.SetBool("Shooting", true);
-        bulletCooldownTimer = shootCooldownTime = .25f;
+        shootCooldownTimer = shootCooldownTime = .25f;
         GameObject bullet = Instantiate<GameObject>(abilityPrefabs[currentAbility]);
         bullet.transform.position = abilityStartPos;
         abilities.Add(bullet);

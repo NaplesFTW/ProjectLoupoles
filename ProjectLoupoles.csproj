@@ -85,10 +85,11 @@
     <Compile Include="Assets\Scripts\EnemyScripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\General\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\General\ChangeLevel.cs" />
+    <Compile Include="Assets\Scripts\General\GameManager.cs" />
     <Compile Include="Assets\Scripts\General\MonoSingleton.cs" />
-    <Compile Include="Assets\Scripts\General\Terminate.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerDash.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\PlayerHit.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerJump.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerLife.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerRun.cs" />

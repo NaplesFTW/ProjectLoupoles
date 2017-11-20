@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     PlayerState playerState;
+    public GameManager gm;
 
     PlayerLife playerLife;
     PlayerRun playerRun;
     PlayerDash playerDash;
     PlayerJump playerJump;
-    [HideInInspector]
-    public PlayerShoot playerShoot;
+    [HideInInspector] public PlayerShoot playerShoot;
+    [HideInInspector] public PlayerHit playerHit;
 
     public Transform bulletParent;
 
-    [HideInInspector]
-    public Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
     public Animator anim;
-
     public RaycastHit2D hit;
 
     public float hor; // Horizontal axis for the inputs.
@@ -33,6 +32,7 @@ public class Player : MonoBehaviour {
         playerDash = GetComponent<PlayerDash>();
         playerJump = GetComponent<PlayerJump>();
         playerShoot = GetComponent<PlayerShoot>();
+        playerHit = GetComponent<PlayerHit>();
         isFacingRight = true;
         savedGravityScale = rb.gravityScale;
     }
@@ -81,11 +81,14 @@ public class Player : MonoBehaviour {
     }
     public void setState(PlayerState PS)
     {
+        if (playerState == PS)
+            return;
         playerState = PS;
         if(playerState == PlayerState.Dead)
         {
             anim.SetTrigger("Die");
         }
+
     }
 
 }
@@ -94,5 +97,6 @@ public enum PlayerState
 {
     Moving,
     Dashing,
+    Hit,
     Dead
 }

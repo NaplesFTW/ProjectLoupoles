@@ -7,7 +7,11 @@ public class PlayerLife : MonoBehaviour {
     public int healthPoints = 10;
 
     public float healthSafeTime = .25f;
-    public float healthSafeTimer;
+    float healthSafeTimer;
+
+    public float playerDeadTime;
+    float playerDeadTimer;
+    bool playerDead;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +22,15 @@ public class PlayerLife : MonoBehaviour {
 	void Update () {
         if (healthSafeTimer > 0)
             healthSafeTimer -= Time.deltaTime;
+
+        if (playerDeadTimer > 0)
+            playerDeadTimer -= Time.deltaTime;
+        else if(playerDead)
+        {
+            if (player.gm != null)
+                player.gm.changeLevel.restartLevel();
+        }
+        
 	}
 
     public void takeDamage(int damage)
@@ -27,12 +40,21 @@ public class PlayerLife : MonoBehaviour {
             healthPoints -= damage;
             healthSafeTimer = healthSafeTime;
         }
+
         if (healthPoints <= 0)
             die();
     }
+    public void takeDamageKnockback(int damage)
+    {
+        takeDamage(damage);
+        player.playerHit.hit();
+    }
+
+
     public void die()
     {
-
         player.setState(PlayerState.Dead);
+        playerDeadTimer = playerDeadTime;
+        playerDead = true;
     }
 }

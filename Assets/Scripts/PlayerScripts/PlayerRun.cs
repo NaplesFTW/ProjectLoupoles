@@ -23,6 +23,9 @@ public class PlayerRun : MonoBehaviour {
 
     void move()
     {
+        if (player.getState() == PlayerState.Dead)
+            return;
+
         //again checks if in moving state
         if (player.getState() == PlayerState.Moving)
         {
@@ -45,7 +48,6 @@ public class PlayerRun : MonoBehaviour {
             {
                 if(player.hor == 0)
                 {
-                    Debug.Log("here");
                     player.rb.velocity = new Vector2(0,player.rb.velocity.y);
                     //player.rb.AddForce(new Vector2(-horState * speed + -player.rb.velocity.x *3/6, 0), ForceMode2D.Impulse);
                 }
@@ -54,12 +56,13 @@ public class PlayerRun : MonoBehaviour {
 
             }
 
-            ////////////////////////
-            if (player.rb.velocity.x > maxVel)
-                player.rb.velocity = new Vector2(maxVel, player.rb.velocity.y);
-            if (player.rb.velocity.x < -maxVel)
-                player.rb.velocity = new Vector2(-maxVel, player.rb.velocity.y);
-
+            if (player.hor != 0)
+            {
+                if (player.rb.velocity.x > maxVel)
+                    player.rb.velocity = new Vector2(maxVel, player.rb.velocity.y);
+                if (player.rb.velocity.x < -maxVel)
+                    player.rb.velocity = new Vector2(-maxVel, player.rb.velocity.y);
+            }
         }
     }
 
