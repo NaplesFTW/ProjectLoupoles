@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour {
     {
         health -= damage;
         if (health <= 0)
+        {
             Destroy(gameObject);
+            ScoreManager.score += 10;
+        }
     }
 }
