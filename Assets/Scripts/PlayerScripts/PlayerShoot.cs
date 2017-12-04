@@ -67,7 +67,7 @@ public class PlayerShoot : MonoBehaviour {
         player.anim.SetBool("Shooting", true);
         shootCooldownTimer = shootCooldownTime = .25f;
         GameObject bullet = Instantiate<GameObject>(abilityPrefabs[currentAbility]);
-        bullet.transform.position = abilityStartPos;
+        bullet.transform.position = (Vector2)transform.position + abilityStartPos;
         abilities.Add(bullet);
     }
 

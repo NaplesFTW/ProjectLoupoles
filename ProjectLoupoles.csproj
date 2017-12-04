@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\General\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\General\ChangeLevel.cs" />
     <Compile Include="Assets\Scripts\General\GameManager.cs" />
+    <Compile Include="Assets\Scripts\General\MapGeneratorManager.cs" />
     <Compile Include="Assets\Scripts\General\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerDash.cs" />
