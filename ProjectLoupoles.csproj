@@ -81,6 +81,7 @@
     <Compile Include="Assets\NOTES.cs" />
     <Compile Include="Assets\Scripts\AbilitySystem\Abilities.cs" />
     <Compile Include="Assets\Scripts\AbilitySystem\RegularBullet.cs" />
+    <Compile Include="Assets\Scripts\CoinCollect.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyScripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\General\CameraFollow.cs" />

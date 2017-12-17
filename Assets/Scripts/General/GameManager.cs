@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
     public Player player;
-
-
     public ChangeLevel changeLevel;
     // Use this for initialization
     void Start () {
